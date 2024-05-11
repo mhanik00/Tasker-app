@@ -1,18 +1,30 @@
 
+import { HeartIcon } from '@heroicons/react/24/outline'
 
-export default function TaskOutput({ deletHandeler, task }) {
+import { HeartIcon as HeartFill, TrashIcon, } from '@heroicons/react/24/solid'
 
+export default function TaskOutput({ deleteHandler, task, favoriteToggler }) {
 
     return (
-        <div className='flex justify-between mx-2 mt-2 border-b border-b-red-500 pb-2  font-sans text-xl'>
-            <p>
-                {task.title}
+        <div className='flex justify-between mx-2 mt-2 border-b  border-b-amber-200 pb-2  font-sans text-xl'>
+
+            <p className={`font-semibold ${task.isFavorite ? " text-amber-400 " : "text-white"}`}>
+                {task.task}
             </p>
 
-            <button onClick={() => deletHandeler(task.id)}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-amber-400">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m6 4.125 2.25 2.25m0 0 2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
-            </svg>
+            <button onClick={() => favoriteToggler(task.id)}>
+                {
+                    task.isFavorite ?
+                        <HeartFill className="h-5 w-5  text-amber-400 " />
+                        :
+                        <HeartIcon className="h-5 w-5  text-amber-400  " />
+                }
             </button>
+
+            <button onClick={() => deleteHandler(task.id)}>
+                <TrashIcon className='h-5 w-5  text-amber-400 ' />
+            </button>
+
         </div>
     )
 }
